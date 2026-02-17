@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ruli Dell Admin</title>
+
+<style>
+body{
+  font-family:Arial, sans-serif;
+  background:#f4f6fa;
+  padding:20px;
+}
+
+h2{
+  text-align:center;
+  color:#0a1f44;
+}
+
+button{
+  background:#0a1f44;
+  color:white;
+  padding:8px 15px;
+  border:none;
+  cursor:pointer;
+  border-radius:5px;
+  margin-bottom:15px;
+}
+
+table{
+  width:100%;
+  background:white;
+  border-collapse:collapse;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+th,td{
+  padding:12px;
+  border:1px solid #ddd;
+  text-align:center;
+}
+
+th{
+  background:#0a1f44;
+  color:white;
+}
+
+.status-paid{
+  color:green;
+  font-weight:bold;
+}
+
+.status-pending{
+  color:orange;
+  font-weight:bold;
+}
+
+.status-failed{
+  color:red;
+  font-weight:bold;
+}
+
+@media(max-width:600px){
+  table{
+    font-size:12px;
+  }
+}
+</style>
+</head>
+<body>
+
+<h2>Ruli Dell Shop - Admin Dashboard</h2>
+
+<center>
+<button onclick="loadOrders()">🔄 Refresh Orders</button>
+</center>
+
+<table>
+<thead>
+<tr>
+<th>Customer</th>
+<th>Phone</th>
+<th>Amount</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody id="orders"></tbody>
+</table>
+
+<script>
+function loadOrders(){
+  fetch("/orders")
+  .then(res => res.json())
+  .then(data => {
+    let html="";
+    data.forEach(order=>{
+      let statusClass="status-pending";
+
+      if(order.status==="Paid") statusClass="status-paid";
+      if(order.status==="Failed") statusClass="status-failed";
+
+      html+=`
+      <tr>
+        <td>${order.name}</td>
+        <td>${order.phone}</td>
+        <td>${order.amount} RWF</td>
+        <td class="${statusClass}">${order.status}</td>
+      </tr>
+      `;
+    });
+
+    document.getElementById("orders").innerHTML=html;
+  })
+  .catch(err=>{
+    alert("Failed to load orders");
+  });
+}
+
+loadOrders();
+</script>
+
+</body>
+</html>
