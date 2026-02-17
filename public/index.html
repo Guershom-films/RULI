@@ -1,0 +1,153 @@
+iyi index.html imeze ne ze se   <!DOCTYPE html>
+<html lang="rw">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ruli Dell Shop</title>
+
+<style>
+body{margin:0;font-family:Arial;background:#f4f4f4}
+header{background:#0a1f44;color:white;padding:15px;text-align:center}
+nav{background:#122c5c;padding:10px;text-align:center}
+nav a{color:white;text-decoration:none;margin:15px;font-weight:bold}
+.section{padding:40px 20px;text-align:center}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-top:20px}
+.card{background:white;padding:15px;border-radius:8px;box-shadow:0 4px 8px rgba(0,0,0,0.1)}
+.card img{width:100%;height:180px;object-fit:cover;border-radius:5px}
+button{background:#0a1f44;color:white;padding:10px;border:none;cursor:pointer;margin-top:10px;width:100%}
+.cart{position:fixed;right:0;top:0;width:320px;height:100%;background:white;box-shadow:-3px 0 10px rgba(0,0,0,0.2);padding:20px;overflow:auto}
+.cart h2{text-align:center}
+.cart-item{display:flex;justify-content:space-between;margin:10px 0;font-size:14px}
+.total{font-weight:bold;margin-top:20px}
+.momo-box{background:#ffe600;padding:15px;margin-top:20px;border-radius:8px}
+.support{margin-top:15px;font-size:14px}
+footer{background:#0a1f44;color:white;text-align:center;padding:15px;margin-top:30px}
+input{width:100%;padding:8px;margin:8px 0}
+</style>
+
+</head>
+<body>
+
+<header>
+<h1>Ruli Dell Shop</h1>
+<p>Isoko ricuruza ibikoresho byiza kandi bigezweho</p>
+</header>
+
+<nav>
+<a href="#tech">Ikoranabuhanga</a>
+<a href="#beauty">Ubwiza</a>
+</nav>
+
+<section id="tech" class="section">
+<h2>Ibikoresho by'Ikoranabanga</h2>
+<div class="products">
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8">
+<h3>Laptop</h3>
+<p>450000 Frw</p>
+<button onclick="addToCart('Laptop',450000)">Gura</button>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9">
+<h3>Smartphone</h3>
+<p>250000 Frw</p>
+<button onclick="addToCart('Smartphone',250000)">Gura</button>
+</div>
+
+</div>
+</section>
+
+<section id="beauty" class="section">
+<h2>Ibikoresho by'Ubwiza</h2>
+<div class="products">
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30">
+<h3>Makeup Kit</h3>
+<p>35000 Frw</p>
+<button onclick="addToCart('Makeup Kit',35000)">Gura</button>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9">
+<h3>Hair Dryer</h3>
+<p>28000 Frw</p>
+<button onclick="addToCart('Hair Dryer',28000)">Gura</button>
+</div>
+
+</div>
+</section>
+
+<div class="cart">
+<h2>🛒 Cart</h2>
+<div id="cart-items"></div>
+<div class="total">Total: <span id="total">0</span> Frw</div>
+
+<h3>Checkout</h3>
+<input type="text" placeholder="Amazina yawe">
+<input type="text" placeholder="Telefone yawe">
+
+<div class="momo-box">
+<h3>💳 Kwishyura MoMo Pay</h3>
+<p><strong>Code:</strong> 595449</p>
+<p>1️⃣ Fungura MoMo<br>
+2️⃣ Hitamo Pay via Code<br>
+3️⃣ Shyiramo 595449<br>
+4️⃣ Emeza kwishyura</p>
+</div>
+
+<button onclick="completeOrder()">Narangije Kwishyura</button>
+
+<div class="support">
+📞 Ubufasha: +250 792 552 013 <br>
+📧 Email: umwamiking2500@gmail.com
+</div>
+
+</div>
+
+<footer>
+<p>© 2026 Ruli Dell Shop - All Rights Reserved</p>
+</footer>
+
+<script>
+let cart=[];
+function addToCart(name,price){
+cart.push({name,price});
+displayCart();
+}
+
+function displayCart(){
+let cartItems=document.getElementById("cart-items");
+let total=0;
+cartItems.innerHTML="";
+cart.forEach((item,index)=>{
+total+=item.price;
+cartItems.innerHTML+=`
+<div class="cart-item">
+${item.name} - ${item.price} Frw
+<button onclick="removeItem(${index})">X</button>
+</div>`;
+});
+document.getElementById("total").innerText=total;
+}
+
+function removeItem(index){
+cart.splice(index,1);
+displayCart();
+}
+
+function completeOrder(){
+if(cart.length===0){
+alert("Nta gicuruzwa kiri muri Cart.");
+}else{
+alert("Murakoze kugura kuri Ruli Dell Shop! Nyuma yo kwishyura MoMo Pay 595449, tuzabageraho kuri telefone mwatanze.");
+cart=[];
+displayCart();
+}
+}
+</script>
+
+</body>
+</html>
