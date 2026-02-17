@@ -55,7 +55,10 @@ app.post("/pay", async (req, res) => {
             process.env.MOMO_SUBSCRIPTION_KEY,
           "Content-Type": "application/json",
         },
-      }
+      }app.get("/", (req, res) => {
+  res.send("Server is working");
+});
+
     );
 
     res.json({ message: "Payment request sent successfully!" });
